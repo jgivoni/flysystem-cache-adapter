@@ -12,7 +12,7 @@ use League\Flysystem\FilesystemAdapter;
 
 /**
  * Trait for handling cache items in CacheAdapter
- * 
+ *
  * @property FilesystemAdapter $adapter
  * @property CacheItemPoolInterface $cache
  */
@@ -21,42 +21,21 @@ trait CacheItemsTrait
     const CACHE_KEY_PREFIX = 'flysystem_item_';
     const CACHE_KEY_HASH_SALT = '563ce5132194441b';
 
-    /** @var array<CacheItemInterface> */
-    protected $cacheItems = [];
-
     protected function getCacheItem(string $path): CacheItemInterface
     {
-        if (!isset($this->cacheItems[$path])) {
-            $key = self::getCacheItemKey($path);
+        $key = self::getCacheItemKey($path);
 
-            $this->cacheItems[$path] = $this->cache->getItem($key);
-        }
-
-        return $this->cacheItems[$path];
+        return $this->cache->getItem($key);
     }
 
     protected function saveCacheItem(CacheItemInterface $cacheItem): void
     {
         $this->cache->save($cacheItem);
-
-        /** @var StorageAttributes $storageAttributes */
-        $storageAttributes = $cacheItem->get();
-
-        $path = $storageAttributes->path();
-
-        $this->cacheItems[$path] = $cacheItem;
     }
 
     protected function deleteCacheItem(CacheItemInterface $cacheItem): void
     {
         $this->cache->deleteItem($cacheItem->getKey());
-
-        /** @var StorageAttributes $storageAttributes */
-        $storageAttributes = $cacheItem->get();
-
-        $path = $storageAttributes->path();
-
-        unset($this->cacheItems[$path]);
     }
 
     public static function getCacheItemKey(string $path): string
@@ -76,7 +55,7 @@ trait CacheItemsTrait
     /**
      * Returns a new FileAttributes with all properties from $fileAttributesExtension
      * overriding existing properties from $fileAttributesBase (with the exception of path)
-     * 
+     *
      * For extraMetadata, each individual element in the array is also merged
      */
     protected static function mergeFileAttributes(
@@ -103,7 +82,7 @@ trait CacheItemsTrait
     /**
      * Returns a new DirectoryAttributes with all properties from $directoryAttributesExtension
      * overriding existing properties from $directoryAttributesBase (with the exception of path)
-     * 
+     *
      * For extraMetadata, each individual element in the array is also merged
      */
     protected static function mergeDirectoryAttributes(
@@ -126,7 +105,7 @@ trait CacheItemsTrait
     /**
      * Returns FileAttributes from cache if desired attribute is found,
      * or loads the desired missing attribute from the adapter and merges it with the cached attributes.
-     * 
+     *
      * @param Closure $loader Returns FileAttributes with the desired attribute loaded from adapter
      * @param Closure $attributeAccessor Returns value of desired attribute from cached item
      */
