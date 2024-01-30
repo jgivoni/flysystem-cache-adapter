@@ -415,6 +415,7 @@ class CacheAdapter implements FilesystemAdapter, ChecksumProvider
             $this->adapter->move($source, $destination, $config);
         } catch (UnableToMoveFile $e) {
             $this->purgeCacheItem($source);
+            $this->purgeCacheItem($destination);
             throw $e;
         }
 
@@ -446,6 +447,7 @@ class CacheAdapter implements FilesystemAdapter, ChecksumProvider
             $this->adapter->copy($source, $destination, $config);
         } catch (UnableToCopyFile $e) {
             $this->purgeCacheItem($source);
+            $this->purgeCacheItem($destination);
             throw $e;
         }
 

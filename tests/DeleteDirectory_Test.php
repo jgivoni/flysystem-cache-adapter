@@ -46,7 +46,7 @@ class DeleteDirectory_Test extends CacheTestCase
      */
     public function cache_is_purged_after_unsuccessful_delete(): void
     {
-        $path = 'deleted-cached-folder';
+        $path = 'deleted-cached-directory';
 
         try {
             $this->cacheAdapter->deleteDirectory($path);
