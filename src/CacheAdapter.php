@@ -10,6 +10,7 @@ use League\Flysystem\DirectoryAttributes;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\StorageAttributes;
+use League\Flysystem\UnableToCopyFile;
 use League\Flysystem\UnableToProvideChecksum;
 use League\Flysystem\UnableToReadFile;
 use League\Flysystem\UnableToRetrieveMetadata;
@@ -442,7 +443,17 @@ class CacheAdapter implements FilesystemAdapter, ChecksumProvider
      */
     public function copy(string $source, string $destination, Config $config): void
     {
-        $this->adapter->copy($source, $destination, $config);
+        try {
+            $this->adapter->copy($source, $destination, $config);
+        } catch (UnableToCopyFile $e) {
+            $item = $this->getCacheItem($source);
+
+            if ($item->isHit()) {
+                $this->deleteCacheItem($item);
+            }
+
+            throw $e;
+        }
 
         $itemSource = $this->getCacheItem($source);
         $itemDestination = $this->getCacheItem($destination);
