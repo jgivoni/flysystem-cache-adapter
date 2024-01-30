@@ -46,9 +46,10 @@ class Copy_Test extends CacheTestCase
         try {
             $this->cacheAdapter->copy($path, 'destination', new Config);
         } catch (UnableToCopyFile $e) {
-            $this->assertCachedItems([
-                $path => \null,
-            ]);
         }
+
+        $this->assertCachedItems([
+            $path => \null,
+        ]);
     }
 }

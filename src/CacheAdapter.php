@@ -11,9 +11,12 @@ use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\StorageAttributes;
 use League\Flysystem\UnableToCopyFile;
+use League\Flysystem\UnableToDeleteFile;
+use League\Flysystem\UnableToMoveFile;
 use League\Flysystem\UnableToProvideChecksum;
 use League\Flysystem\UnableToReadFile;
 use League\Flysystem\UnableToRetrieveMetadata;
+use League\Flysystem\UnableToSetVisibility;
 use Psr\Cache\CacheItemPoolInterface;
 use RuntimeException;
 
@@ -101,17 +104,14 @@ class CacheAdapter implements FilesystemAdapter, ChecksumProvider
      */
     public function read(string $path): string
     {
-        $item = $this->getCacheItem($path);
-
         try {
             $contents = $this->adapter->read($path);
         } catch (UnableToReadFile $e) {
-            if ($item->isHit()) {
-                $this->deleteCacheItem($item);
-            }
-
+            $this->purgeCacheItem($path);
             throw $e;
         }
+
+        $item = $this->getCacheItem($path);
 
         if (!$item->isHit()) {
             $fileAttributes = new FileAttributes(
@@ -131,17 +131,14 @@ class CacheAdapter implements FilesystemAdapter, ChecksumProvider
      */
     public function readStream(string $path)
     {
-        $item = $this->getCacheItem($path);
-
         try {
             $resource = $this->adapter->readStream($path);
         } catch (UnableToReadFile $e) {
-            if ($item->isHit()) {
-                $this->deleteCacheItem($item);
-            }
-
+            $this->purgeCacheItem($path);
             throw $e;
         }
+
+        $item = $this->getCacheItem($path);
 
         if (!$item->isHit()) {
             $fileAttributes = new FileAttributes(
@@ -161,12 +158,10 @@ class CacheAdapter implements FilesystemAdapter, ChecksumProvider
      */
     public function delete(string $path): void
     {
-        $this->adapter->delete($path);
-
-        $item = $this->getCacheItem($path);
-
-        if ($item->isHit()) {
-            $this->deleteCacheItem($item);
+        try {
+            $this->adapter->delete($path);
+        } finally {
+            $this->purgeCacheItem($path);
         }
     }
 
@@ -175,21 +170,15 @@ class CacheAdapter implements FilesystemAdapter, ChecksumProvider
      */
     public function deleteDirectory(string $path): void
     {
-        foreach ($this->adapter->listContents($path, true) as $storageAttributes) {
-            /** @var StorageAttributes $storageAttributes */
-            $item = $this->getCacheItem($storageAttributes->path());
-
-            if ($item->isHit()) {
-                $this->deleteCacheItem($item);
+        try {
+            foreach ($this->adapter->listContents($path, true) as $storageAttributes) {
+                /** @var StorageAttributes $storageAttributes */
+                $this->purgeCacheItem($storageAttributes->path());
             }
-        }
 
-        $this->adapter->deleteDirectory($path);
-
-        $item = $this->getCacheItem($path);
-
-        if ($item->isHit()) {
-            $this->deleteCacheItem($item);
+            $this->adapter->deleteDirectory($path);
+        } finally {
+            $this->purgeCacheItem($path);
         }
     }
 
@@ -208,7 +197,12 @@ class CacheAdapter implements FilesystemAdapter, ChecksumProvider
      */
     public function setVisibility(string $path, string $visibility): void
     {
-        $this->adapter->setVisibility($path, $visibility);
+        try {
+            $this->adapter->setVisibility($path, $visibility);
+        } catch (UnableToSetVisibility $e) {
+            $this->purgeCacheItem($path);
+            throw $e;
+        }
 
         $item = $this->getCacheItem($path);
 
@@ -417,7 +411,12 @@ class CacheAdapter implements FilesystemAdapter, ChecksumProvider
      */
     public function move(string $source, string $destination, Config $config): void
     {
-        $this->adapter->move($source, $destination, $config);
+        try {
+            $this->adapter->move($source, $destination, $config);
+        } catch (UnableToMoveFile $e) {
+            $this->purgeCacheItem($source);
+            throw $e;
+        }
 
         $itemSource = $this->getCacheItem($source);
         $itemDestination = $this->getCacheItem($destination);
@@ -446,12 +445,7 @@ class CacheAdapter implements FilesystemAdapter, ChecksumProvider
         try {
             $this->adapter->copy($source, $destination, $config);
         } catch (UnableToCopyFile $e) {
-            $item = $this->getCacheItem($source);
-
-            if ($item->isHit()) {
-                $this->deleteCacheItem($item);
-            }
-
+            $this->purgeCacheItem($source);
             throw $e;
         }
 

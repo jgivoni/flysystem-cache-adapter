@@ -71,9 +71,10 @@ class Read_Test extends CacheTestCase
         try {
             $this->cacheAdapter->readStream($path);
         } catch (UnableToReadFile $e) {
-            $this->assertCachedItems([
-                $path => \null,
-            ]);
         }
+
+        $this->assertCachedItems([
+            $path => \null,
+        ]);
     }
 }
