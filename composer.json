@@ -43,7 +43,8 @@
         "league/flysystem-adapter-test-utilities": "^3.15",
         "league/flysystem-memory": "^3.15",
         "symfony/cache": "^6.3|^7.0",
-        "league/flysystem-aws-s3-v3": "^3.15"
+        "league/flysystem-aws-s3-v3": "^3.15",
+        "friendsofphp/php-cs-fixer": "^3.68"
     },
     "suggest": {
         "symfony/cache": "Ready to use adapters for the most common caching backends"
