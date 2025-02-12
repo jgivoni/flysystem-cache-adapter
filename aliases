@@ -4,3 +4,6 @@ alias php='d php "$@"'
 alias composer='d composer "$@"'
 alias phpstan='d vendor/bin/phpstan analyze "$@"'
 alias phpunit='d vendor/bin/phpunit "$@"'
+alias phpcsfixer='d vendor/friendsofphp/php-cs-fixer/php-cs-fixer "$@"'
+
+alias reload='. ./aliases'

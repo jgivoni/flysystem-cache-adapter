@@ -68,3 +68,36 @@ jobs:
 
       - name: Run unit tests
         run: docker exec mycontainer vendor/bin/phpunit
+
+  job3:
+    strategy:
+      matrix:
+        php_version: ["8.1"]
+    name: PhpCsFixer code style checker ${{ matrix.php_version }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v3
+
+      - name: Enable caching
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        # Deprecation warnings are expected...
+        continue-on-error: true
+
+      - name: Build image
+        run: docker image build . -f Dockerfile -t myimage:latest --build-arg PHP_VERSION=${{ matrix.php_version }}
+
+      - name: Launch container
+        run: docker run -d -v "$(pwd)/:/app" --name mycontainer myimage:latest tail -f /dev/null
+
+      - name: Check PHP version
+        run: docker exec mycontainer php -v
+
+      - name: Check composer.json validity
+        run: docker exec mycontainer composer validate
+
+      - name: Install dependencies
+        run: docker exec mycontainer composer install
+
+      - name: Run unit tests
+        run: docker exec mycontainer vendor/friendsofphp/php-cs-fixer/php-cs-fixer check

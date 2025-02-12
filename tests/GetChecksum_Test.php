@@ -23,7 +23,7 @@ class GetChecksum_Test extends CacheTestCase
         ]);
     }
 
-    /** 
+    /**
      * @test
      * @dataProvider dataProvider
      */
@@ -35,7 +35,7 @@ class GetChecksum_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function dataProvider(): iterable
@@ -45,7 +45,7 @@ class GetChecksum_Test extends CacheTestCase
         yield 'file is not cached' => ['non-cached-file', md5('0123456789')];
     }
 
-    /** 
+    /**
      * @test
      * @dataProvider aws_dataProvider
      */
@@ -62,7 +62,7 @@ class GetChecksum_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function aws_dataProvider(): iterable
@@ -84,7 +84,7 @@ class GetChecksum_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function errorDataProvider(): iterable
@@ -94,7 +94,7 @@ class GetChecksum_Test extends CacheTestCase
         yield 'Path is directory (non-cached)' => ['non-cached-directory'];
     }
 
-    /** 
+    /**
      * @test
      */
     public function cache_is_purged_after_unsuccessful_get(): void

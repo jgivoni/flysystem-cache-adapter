@@ -6,7 +6,7 @@ use League\Flysystem\DirectoryAttributes;
 
 class DirectoryExists_Test extends CacheTestCase
 {
-    /** 
+    /**
      * @test
      * @dataProvider dataProvider
      */
@@ -18,7 +18,7 @@ class DirectoryExists_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function dataProvider(): iterable
@@ -30,7 +30,7 @@ class DirectoryExists_Test extends CacheTestCase
         yield 'file is not a directory' => ['fully-cached-file', false];
     }
 
-    /** 
+    /**
      * @test
      */
     public function directory_is_cached_after_checking_filesystem(): void

@@ -8,7 +8,7 @@ use League\Flysystem\FileAttributes;
 
 class Write_Test extends CacheTestCase
 {
-    /** 
+    /**
      * @test
      * @dataProvider dataProvider
      */
@@ -21,7 +21,7 @@ class Write_Test extends CacheTestCase
         ]);
     }
 
-    /** 
+    /**
      * @test
      * @dataProvider dataProvider
      */
@@ -37,7 +37,7 @@ class Write_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function dataProvider(): iterable

@@ -8,7 +8,7 @@ use League\Flysystem\Visibility;
 
 class Read_Test extends CacheTestCase
 {
-    /** 
+    /**
      * @test
      * @dataProvider dataProvider
      */
@@ -21,7 +21,7 @@ class Read_Test extends CacheTestCase
         ]);
     }
 
-    /** 
+    /**
      * @test
      * @dataProvider dataProvider
      */
@@ -35,7 +35,7 @@ class Read_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function dataProvider(): iterable
@@ -45,7 +45,7 @@ class Read_Test extends CacheTestCase
         yield 'cached file attributes are unchanged after reading' => ['fully-cached-file', 10, Visibility::PUBLIC];
     }
 
-    /** 
+    /**
      * @test
      */
     public function cache_is_purged_after_unsuccessful_read(): void
@@ -61,7 +61,7 @@ class Read_Test extends CacheTestCase
         }
     }
 
-    /** 
+    /**
      * @test
      */
     public function cache_is_purged_after_unsuccessful_readStream(): void

@@ -9,7 +9,7 @@ use League\Flysystem\Visibility;
 
 class GetVisibility_Test extends CacheTestCase
 {
-    /** 
+    /**
      * @test
      * @dataProvider dataProvider
      */
@@ -21,7 +21,7 @@ class GetVisibility_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function dataProvider(): iterable
@@ -31,7 +31,7 @@ class GetVisibility_Test extends CacheTestCase
         yield 'file is not cached but exists in the filesystem' => ['non-cached-file', new FileAttributes('non-cached-file', visibility: Visibility::PUBLIC)];
     }
 
-    /** 
+    /**
      * @test
      */
     public function file_is_cached_after_checking_filesystem(): void
@@ -56,7 +56,7 @@ class GetVisibility_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function errorDataProvider(): iterable
@@ -66,7 +66,7 @@ class GetVisibility_Test extends CacheTestCase
         yield 'Path is directory (non-cached)' => ['non-cached-directory'];
     }
 
-    /** 
+    /**
      * @test
      */
     public function cache_is_purged_after_unsuccessful_get(): void
