@@ -11,8 +11,6 @@ $finder = (new Finder())
 return (new Config())
     ->setRules([
         '@PSR12' => true,
-        '@Symfony' => true,
-        'phpdoc_to_comment' => false,
         'concat_space' => ['spacing' => 'one'],
     ])
     ->setFinder($finder);
