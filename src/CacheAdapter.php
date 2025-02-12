@@ -326,7 +326,7 @@ class CacheAdapter implements FilesystemAdapter, ChecksumProvider
         $algo = $config->get('checksum_algo');
 
         if (isset($algo) && !is_string($algo)) {
-            throw new ErrorException('"checksum_algo" $config must be a string.');
+            throw new ErrorException('"checksum_algo" in $config must be a string.');
         }
 
         $metadataKey = isset($algo) ? 'checksum_' . $algo : 'checksum';
