@@ -57,7 +57,7 @@ class CacheTestCase extends TestCase
     }
 
     /**
-     * @param array<string, FileAttributes|DirectoryAttributes> $items 
+     * @param array<string, FileAttributes|DirectoryAttributes> $items
      */
     protected function setupCache(array $items): void
     {
@@ -71,7 +71,7 @@ class CacheTestCase extends TestCase
     }
 
     /**
-     * @param array<string, string> $items 
+     * @param array<string, string> $items
      */
     protected function setupFiles(array $items): void
     {
@@ -81,7 +81,7 @@ class CacheTestCase extends TestCase
     }
 
     /**
-     * @param array<string, StorageAttributes|FileAttributes|DirectoryAttributes|null> $items 
+     * @param array<string, StorageAttributes|FileAttributes|DirectoryAttributes|null> $items
      */
     protected function assertCachedItems(array $items): void
     {

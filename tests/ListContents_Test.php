@@ -7,7 +7,7 @@ use League\Flysystem\Visibility;
 
 class ListContents_Test extends CacheTestCase
 {
-    /** 
+    /**
      * @test
      */
     public function content_list_is_cached(): void

@@ -21,8 +21,8 @@ use RuntimeException;
  */
 trait CacheItemsTrait
 {
-    static string $CACHE_KEY_PREFIX = 'flysystem_item_';
-    static string $CACHE_KEY_HASH_SALT = '563ce5132194441b';
+    public static string $CACHE_KEY_PREFIX = 'flysystem_item_';
+    public static string $CACHE_KEY_HASH_SALT = '563ce5132194441b';
 
     protected function getCacheItem(string $path): CacheItemInterface
     {

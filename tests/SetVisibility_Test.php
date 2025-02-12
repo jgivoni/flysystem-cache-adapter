@@ -9,7 +9,7 @@ use League\Flysystem\Visibility;
 
 class SetVisibility_Test extends CacheTestCase
 {
-    /** 
+    /**
      * @test
      * @dataProvider dataProvider
      */
@@ -23,7 +23,7 @@ class SetVisibility_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function dataProvider(): iterable
@@ -36,7 +36,7 @@ class SetVisibility_Test extends CacheTestCase
         // yield 'cached directory, set private' => ['cached-directory', Visibility::PRIVATE, new DirectoryAttributes('fully-cached-file', visibility: Visibility::PRIVATE)];
     }
 
-    /** 
+    /**
      * @test
      */
     public function cache_is_purged_after_unsuccessful_set(): void

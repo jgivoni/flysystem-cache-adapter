@@ -6,7 +6,7 @@ use League\Flysystem\UnableToRetrieveMetadata;
 
 class GetFileSize_Test extends CacheTestCase
 {
-    /** 
+    /**
      * @test
      * @dataProvider dataProvider
      */
@@ -18,7 +18,7 @@ class GetFileSize_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function dataProvider(): iterable
@@ -41,7 +41,7 @@ class GetFileSize_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function errorDataProvider(): iterable
@@ -51,7 +51,7 @@ class GetFileSize_Test extends CacheTestCase
         yield 'Path is directory (non-cached)' => ['non-cached-directory'];
     }
 
-    /** 
+    /**
      * @test
      */
     public function cache_is_purged_after_unsuccessful_get(): void

@@ -31,7 +31,7 @@ class CacheAdapter_Test extends FilesystemAdapterTestCase
     /**
      * "Override" function from parent which is not static and thus incompatible with phpunit 10
      * @todo Remove when https://github.com/thephpleague/flysystem-adapter-test-utilities/commit/bf4c950b176bbefcc49c443cdab1ffb62a9fef5c is tagged (version >= 3.16?)
-     * @return Generator 
+     * @return Generator
      */
     public static function filenameProvider2(): Generator
     {

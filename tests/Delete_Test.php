@@ -6,7 +6,7 @@ use League\Flysystem\UnableToDeleteFile;
 
 class Delete_Test extends CacheTestCase
 {
-    /** 
+    /**
      * @test
      * @dataProvider dataProvider
      */
@@ -20,7 +20,7 @@ class Delete_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function dataProvider(): iterable
@@ -29,7 +29,7 @@ class Delete_Test extends CacheTestCase
         yield 'non cached file stays uncached' => ['non-cached-file'];
     }
 
-    /** 
+    /**
      * @test
      */
     public function cache_is_purged_after_unsuccessful_delete(): void

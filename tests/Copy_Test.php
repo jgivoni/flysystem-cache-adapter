@@ -10,7 +10,7 @@ use League\Flysystem\Visibility;
 
 class Copy_Test extends CacheTestCase
 {
-    /** 
+    /**
      * @test
      * @dataProvider dataProvider
      */
@@ -27,7 +27,7 @@ class Copy_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function dataProvider(): iterable
@@ -36,7 +36,7 @@ class Copy_Test extends CacheTestCase
         yield 'cache item is created' => ['non-cached-file', \null, new FileAttributes('destination')];
     }
 
-    /** 
+    /**
      * @test
      */
     public function cache_is_purged_after_unsuccessful_copy(): void

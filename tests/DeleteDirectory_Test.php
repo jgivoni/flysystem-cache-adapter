@@ -6,7 +6,7 @@ use League\Flysystem\UnableToDeleteDirectory;
 
 class DeleteDirectory_Test extends CacheTestCase
 {
-    /** 
+    /**
      * @test
      * @dataProvider dataProvider
      */
@@ -20,7 +20,7 @@ class DeleteDirectory_Test extends CacheTestCase
     }
 
     /**
-     * 
+     *
      * @return iterable<array<mixed>>
      */
     public static function dataProvider(): iterable
@@ -41,7 +41,7 @@ class DeleteDirectory_Test extends CacheTestCase
         ]);
     }
 
-    /** 
+    /**
      * @test
      */
     public function cache_is_purged_after_unsuccessful_delete(): void
