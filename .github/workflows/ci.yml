@@ -6,7 +6,7 @@ jobs:
   job1:
     strategy:
       matrix:
-        php_version: ["8.1", "8.2", "8.3", "8.4"]
+        php_version: ["8.1", "8.2", "8.3", "8.4", "8.5"]
     name: PhpStan static analyzer ${{ matrix.php_version }}
     runs-on: ubuntu-latest
     steps:
@@ -34,12 +34,12 @@ jobs:
         run: docker exec mycontainer composer install
 
       - name: Run static analyzer
-        run: docker exec -e XDEBUG_MODE=off mycontainer vendor/bin/phpstan analyze
+        run: docker exec -e XDEBUG_MODE=off mycontainer vendor/bin/phpstan analyze --memory-limit 256M
 
   job2:
     strategy:
       matrix:
-        php_version: ["8.1", "8.2", "8.3", "8.4"]
+        php_version: ["8.1", "8.2", "8.3", "8.4", "8.5"]
     name: PhpUnit unit tests ${{ matrix.php_version }}
     runs-on: ubuntu-latest
     steps:

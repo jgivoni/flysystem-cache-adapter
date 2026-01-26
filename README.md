@@ -3,6 +3,8 @@
 ![QA](https://github.com/jgivoni/flysystem-cache-adapter/actions/workflows/ci.yml/badge.svg)
 
 ## Changelog highlights
+- **3.4**
+  - [Support for PHP 8.5](https://github.com/jgivoni/flysystem-cache-adapter/issues/29)
 - **3.3**
   - [Support for PHP 8.4](https://github.com/jgivoni/flysystem-cache-adapter/issues/19)
 - **3.2.2**
