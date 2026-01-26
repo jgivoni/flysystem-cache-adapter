@@ -34,7 +34,7 @@ jobs:
         run: docker exec mycontainer composer install
 
       - name: Run static analyzer
-        run: docker exec -e XDEBUG_MODE=off mycontainer vendor/bin/phpstan analyze
+        run: docker exec -e XDEBUG_MODE=off mycontainer vendor/bin/phpstan analyze --memory-limit 256
 
   job2:
     strategy:
